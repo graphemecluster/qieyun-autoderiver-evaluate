@@ -1,0 +1,18 @@
+{
+  "name": "qieyun-autoderiver-evaluate",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.3.2",
+    "qieyun": "^0.12.3",
+    "rollup": "^2.71.1",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^4.2.1",
+    "typescript": "^4.6.3",
+    "yitizi": "^0.1.1"
+  }
+}
