@@ -1,4 +1,4 @@
-import { iter音韻地位, query字頭, 音韻地位 } from "qieyun";
+import { 資料, 音韻地位 } from "qieyun";
 import Yitizi from "yitizi";
 
 import { Char } from "./Char";
@@ -8,7 +8,7 @@ import { createElement, DOMNode, Ruby, Table } from "./create";
 import type { CustomNode } from "./CustomElement";
 import type { Entry, MainState, Option, SchemaState } from "./types";
 
-const 所有地位 = Array.from(iter音韻地位());
+const 所有地位 = Array.from(資料.iter音韻地位());
 type Deriver = (音韻地位: 音韻地位, 字頭?: string | null) => CustomNode[];
 type Handler = (state: MainState, callDeriver: Deriver) => DOMNode | DOMNode[];
 
@@ -21,7 +21,11 @@ function serialize(callDeriver: Deriver): [string, CustomNode[]][] {
 }
 
 function iterate(callDeriver: Deriver) {
-  return 所有地位.map(音韻地位 => ({ 描述: 音韻地位.描述, 擬音陣列: callDeriver(音韻地位), 代表字: 音韻地位.代表字 }));
+  return 所有地位.map(音韻地位 => ({
+    描述: 音韻地位.描述,
+    擬音陣列: callDeriver(音韻地位),
+    代表字: 資料.query音韻地位(音韻地位)[0]?.字頭,
+  }));
 }
 
 function finalize(result: ReturnType<typeof iterate>) {
@@ -67,7 +71,7 @@ export const evaluateOption: Record<Option, Handler> = {
           if (!entries.length) continue;
           break;
         }
-        for (const { 解釋, 音韻地位 } of query字頭(字頭)) {
+        for (const { 解釋, 音韻地位 } of 資料.query字頭(字頭)) {
           const 擬音 = callDeriver(音韻地位, 字頭);
           let entry = entries.find(key => CustomElement.isEqual(key.擬音, 擬音));
           if (!entry) entries.push((entry = { 擬音, 結果: [] }));

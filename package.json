@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.2",
-    "qieyun": "^0.12.3",
+    "qieyun": "^0.13.4",
     "rollup": "^2.71.1",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^4.2.1",

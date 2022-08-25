@@ -1,3 +1,5 @@
+import { 資料 } from "qieyun";
+
 import { createElement, Ruby } from "./create";
 import { addTooltip } from "./tooltip";
 
@@ -46,8 +48,8 @@ export function Char({ id, ch, entries, index }: { id: number; ch: string; entri
           {結果.flatMap((res, i) => {
             const { 字頭, 解釋, 音韻地位 } = res;
             const { 描述 } = 音韻地位;
-            let 反切 = 音韻地位.反切(字頭);
-            反切 = 反切 === null ? "" : `${反切}切 `;
+            let 反切 = 資料.query音韻地位(音韻地位)[0]?.反切;
+            反切 = 反切 ? `${反切}切 ` : "";
             return [
               i ? <br /> : " ",
               // @ts-expect-error
